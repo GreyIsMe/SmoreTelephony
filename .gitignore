@@ -1,0 +1,5 @@
+node_modules/**
+numbers.json
+chrono-db/**
+config.json
+*.sqlite3
