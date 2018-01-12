@@ -1,8 +1,8 @@
 // Modules and inits
-const Commando = require('discord.js-commando');
+const commando = require('discord.js-commando');
 const express = require('express');
 const app = express();
-const client = new Commando.Client({
+const client = new commando.Client({
     owner: '251383432331001856',
     commandPrefix: 'cb!'
 });
@@ -13,7 +13,7 @@ const numbers = require('./numbers.json');
 const config = require('./config.json')
 
 client.setProvider(
-    sqlite.open(path.join(__dirname, 'settings.sqlite3')).then(db => new Commando.SQLiteProvider(db))
+    sqlite.open(path.join(__dirname, 'settings.sqlite3')).then(db => new commando.SQLiteProvider(db))
 ).catch(console.error);
 
 client.registry
