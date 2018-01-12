@@ -183,4 +183,24 @@ Now on: ${client.guilds.size} servers`)
     })
 });
 
+client.numbers = {
+    set: function() {
+
+    },
+    get: function(channelID) {
+        return numbers[channelID]
+    }
+}
+
+client.calls = {
+    createCall: function(details) {
+        let callTo = client.channels.get(details.to)
+        let callFrom = client.channels.get(details.from)
+        callTo.send(`:phone: Call from ${callFrom.name}`)
+    },
+    removeCall: function() {
+        
+    }
+}
+
 client.login(config.token)

@@ -24,6 +24,7 @@ module.exports = class CallCommand extends commando.Command {
 
 	async run(msg, args) {
         const caller = msg.author
-        
+		this.client.numbers.get(msg.channel.id)
+		this.client.calls.createCall({ to: args.callNumber, from: msg.channel.id})
 	}
 };

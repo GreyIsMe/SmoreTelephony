@@ -10,15 +10,6 @@ module.exports = class InitCommand extends Commando.Command {
 			description: 'A command',
 			examples: ['command example'],
 			guildOnly: true,
-
-			// args: [
-			// 	{
-			// 		key: 'commandArg',
-			// 		label: 'commandArg',
-			// 		prompt: 'What would you like to do?',
-			// 		type: 'string'
-			// 	}
-			// ]
 		});
 	}
 
