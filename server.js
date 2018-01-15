@@ -1,5 +1,6 @@
 // Modules and inits
 const commando = require('discord.js-commando');
+const { RichEmbed } = require('discord.js')
 const express = require('express');
 const app = express();
 const client = new commando.Client({
@@ -190,6 +191,7 @@ client.numbers = {
 
     },
     get(channelID) {
+        console.log(numbers[channelID].id)
         return numbers[channelID].id
     }
 }
@@ -213,7 +215,7 @@ client.calls = {
         collector.on('end', (collected, reason) => {
             if (reason === 'time') return message.reply('The call timed out.')
             if (reason === 'aborted') {
-                  message.reply(':x: The call has been denied.')
+                  callFrom.send(':x: The call has been denied.')
                   callTo.send(':x: Succesfully denied call.')
             }
             if (reason === 'success') {
@@ -237,8 +239,8 @@ client.calls = {
 
 		    			    return isEnabled = false
 			    	    }
-			    	    if (message.channel.id === callTo.id) callFrom.send(`:telephone_receiver: ${message.author.username}: ${message.content}`)
-			    	    if (message.channel.id === callFrom.id) callTo.send(`:telephone_receiver: ${message.author.username}: ${message.content}`)
+			    	    if (message.channel.id === callTo.id) callFrom.send(`:telephone_receiver: ${message.author.tag}: ${message.content}`)
+			    	    if (message.channel.id === callFrom.id) callTo.send(`:telephone_receiver: ${message.author.tag}: ${message.content}`)
 			        }
                     contact()
                 })
@@ -247,14 +249,14 @@ client.calls = {
     }
 }
 
-// setInterval(() => {
-//     client.guilds.map(g => {
-//         numbers[g.settings.get('number')] = {
-//             number: `${g.settings.get('number')}`,
-//             id: `${g.settings.get('numberChanID')}`
-//         }
-//     })
-//     fs.writeFileSync(`${__dirname}/numbers.json`, JSON.stringify(numbers, null, 2))
-// }, ms('5s'))
+setInterval(() => {
+    client.guilds.map(g => {
+        numbers[g.settings.get('number')] = {
+            number: `${g.settings.get('number')}`,
+            id: `${g.settings.get('numberChanID')}`
+        }
+    })
+    fs.writeFileSync(`${__dirname}/numbers.json`, JSON.stringify(numbers, null, 2))
+}, ms('5s'))
 
 client.login(config.token)
