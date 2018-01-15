@@ -9,6 +9,7 @@ const client = new commando.Client({
 const path = require('path');
 const sqlite = require('sqlite');
 const ms = require('ms');
+const fs = require('fs');
 const numbers = require('./numbers.json');
 const config = require('./config.json')
 
@@ -36,6 +37,7 @@ client
             type: 0
         }
     });
+    console.log(numbers)
     console.log('Awaiting actions.');
 })
 .on('disconnect', () => console.warn('Disconnected!'))
@@ -194,13 +196,26 @@ client.numbers = {
 
 client.calls = {
     createCall: function(details) {
-        let callTo = client.channels.get(details.to)
-        let callFrom = client.channels.get(details.from)
+        let callTo = client.channels.get(client.numbers.get(details.to))
+        let callFrom = client.channels.get(client.numbers.get(details.from))
+        console.log(client.numbers.get(details.to))
+        console.log(callTo)
+        console.log(callFrom)
         callTo.send(`:phone: Call from ${callFrom.name}`)
     },
     removeCall: function() {
         
     }
 }
+
+setInterval(function() {
+    client.guilds.map((g) => {
+        numbers[g.settings.get('number')] = {
+            "number": `${g.settings.get('number')}`,
+            "id": `${g.settings.get('numberChanID')}`
+        }
+    })
+    fs.writeFileSync(`${__dirname}/numbers.json`, JSON.stringify(numbers, null, 2))
+}, ms('5s'))
 
 client.login(config.token)
