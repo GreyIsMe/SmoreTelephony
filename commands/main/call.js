@@ -23,10 +23,7 @@ module.exports = class CallCommand extends commando.Command {
 	}
 
 	async run(msg, args) {
-		const caller = msg.author
-		let callObj = { to: args.callNumber, from: msg.guild.settings.get('number'), caller: caller}
-		console.log(callObj)
-		this.client.numbers.get(msg.guild.settings.get('number'))
+		let callObj = { to: args.callNumber, from: msg.guild.settings.get('number'), caller:msg.author}
 		this.client.calls.createCall(callObj)
 	}
 };
