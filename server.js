@@ -186,33 +186,31 @@ Now on: ${client.guilds.size} servers`)
 });
 
 client.numbers = {
-    set: function() {
+    set() {
 
     },
-    get: function(channelID) {
+    get(channelID) {
         return numbers[channelID]
     }
 }
 
 client.calls = {
-    createCall: function(details) {
-        let callTo = client.channels.get(client.numbers.get(details.to))
-        let callFrom = client.channels.get(client.numbers.get(details.from))
-        console.log(client.numbers.get(details.to))
-        console.log(callTo)
-        console.log(callFrom)
+    createCall(details) {
+        let callTo = client.channels.get(client.numbers.get(details.to).id)
+        let callFrom = client.channels.get(client.numbers.get(details.from).id)
+
         callTo.send(`:phone: Call from ${callFrom.name}`)
     },
-    removeCall: function() {
+    removeCall() {
         
     }
 }
 
-setInterval(function() {
-    client.guilds.map((g) => {
+setInterval(() => {
+    client.guilds.map(g => {
         numbers[g.settings.get('number')] = {
-            "number": `${g.settings.get('number')}`,
-            "id": `${g.settings.get('numberChanID')}`
+            number: `${g.settings.get('number')}`,
+            id: `${g.settings.get('numberChanID')}`
         }
     })
     fs.writeFileSync(`${__dirname}/numbers.json`, JSON.stringify(numbers, null, 2))
