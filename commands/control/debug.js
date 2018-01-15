@@ -38,6 +38,7 @@ module.exports = class DebugCommand extends commando.Command {
   //eslint-disable-next-line class-methods-use-this
   async run(message, args) {
     if (args.guild.toLowerCase() === 'local') {
+      let guild = msg.guild;
       let announcements = guild.settings.get('announcements')
       let number = guild.settings.get('number')
       let numberChanID = guild.settings.get('numberChanID')
