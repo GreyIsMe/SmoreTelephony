@@ -4,7 +4,7 @@ const express = require('express');
 const app = express();
 const client = new commando.Client({
     owner: '251383432331001856',
-    commandPrefix: 'cb!'
+    commandPrefix: 'st.'
 });
 const path = require('path');
 const sqlite = require('sqlite');
@@ -201,10 +201,10 @@ client.calls = {
         console.log(details)
 		callFrom = client.channels.get(callFrom)
 		let isEnabled = true
-        const collector = client.channels.get(callTo).createCollector(message => message.content.startsWith('call'), {
+        const collector = callTo.createCollector(message => message.content.startsWith('call'), {
             time: 0
         })
-        client.channels.get(callFrom).send('Do `call answer` to answer call and do `call end` to deny call.')
+        callTo.send('Do `call answer` to answer call and do `call end` to deny call.')
         callTo.send(`:iphone: Call from ${details.from}`)
         collector.on('message', (message) => {
             if (message.content === 'call end') collector.stop('aborted')
@@ -214,10 +214,10 @@ client.calls = {
             if (reason === 'time') return message.reply('The call timed out.')
             if (reason === 'aborted') {
                   message.reply(':x: The call has been denied.')
-                  client.channels.get(callFrom).send(':x: Succesfully denied call.')
+                  callTo.send(':x: Succesfully denied call.')
             }
             if (reason === 'success') {
-                client.channels.get(callFrom).send(':heavy_check_mark: Call picked up!')
+                callFrom.send(':heavy_check_mark: Call picked up!')
 		        let sent = 0
 		        client.on('message', message => {
 		        	if (sent === 0) {
@@ -240,7 +240,9 @@ client.calls = {
 			    	    if (message.channel.id === callTo.id) callFrom.send(`:telephone_receiver: ${message.author.username}: ${message.content}`)
 			    	    if (message.channel.id === callFrom.id) callTo.send(`:telephone_receiver: ${message.author.username}: ${message.content}`)
 			        }
-			contact()
+                    contact()
+                })
+            }
         })
     }
 }
