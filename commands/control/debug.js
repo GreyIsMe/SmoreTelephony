@@ -63,7 +63,7 @@ module.exports = class DebugCommand extends commando.Command {
 __**Settings**__
 **Global announcements**: "${announcements}"
 **Number**: "${number}"
-**NumberChanID**: "#${this.client.channels.get(numberChanID).name} / ${numberChanID}")`)
+**NumberChanID**: "#${this.client.channels.get(numberChanID).name} / ${numberChanID}"`)
     } else {
       let guild = this.client.guilds.get(args.guild)
 
