@@ -1,5 +1,5 @@
 node_modules/**
 numbers.json
-chrono-db/**
+blacklist.json
 config.json
 *.sqlite3

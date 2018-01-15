@@ -5,7 +5,7 @@ module.exports = class CallCommand extends commando.Command {
 		super(client, {
 			name: 'call',
 			aliases: ['dial'],
-			group: 'main',
+			group: 'general',
 			memberName: 'call',
 			description: 'Calls a channel',
 			examples: ['call 1-134-234-3244'],
