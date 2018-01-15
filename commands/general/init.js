@@ -25,6 +25,6 @@ module.exports = class InitCommand extends Commando.Command {
 
 		msg.guild.settings.set('number', newnumber)
 		msg.guild.settings.set('numberChanID', msg.channel.id)
-		msg.channel.send(`Number: ${msg.guild.settings.get('number')}\nnumberChannel: ${client.channels.get(msg.guild.settings.get('numberChanID')).name} `)
+		msg.channel.send(`Number: ${msg.guild.settings.get('number')}\nnumberChannel: ${this.client.channels.get(msg.guild.settings.get('numberChanID')).name} `)
 	}
 };
