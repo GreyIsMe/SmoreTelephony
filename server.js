@@ -190,7 +190,7 @@ client.numbers = {
 
     },
     get(channelID) {
-        return numbers[channelID]
+        return numbers[channelID].id
     }
 }
 
