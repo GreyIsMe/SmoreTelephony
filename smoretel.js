@@ -219,6 +219,8 @@ client.calls = {
         const collector = callTo.createCollector(message => message.content.startsWith('call'), {
             time: 0
         })
+        if (callTo === undefined) return;
+        if (callFrom === undefined) return;
         callTo.send('Do `call answer` to answer call and do `call end` to deny call.')
         callTo.send(`:iphone: Call from ${details.from}`)
         collector.on('message', (message) => {
