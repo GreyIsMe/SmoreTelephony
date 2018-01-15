@@ -196,24 +196,63 @@ client.numbers = {
 
 client.calls = {
     createCall(details) {
-        let callTo = client.channels.get(client.numbers.get(details.to).id)
-        let callFrom = client.channels.get(client.numbers.get(details.from).id)
+        const callTo = client.channels.get(client.numbers.get(details.to))
+        let callFrom = client.numbers.get(details.from)
+        console.log(details)
+		callFrom = client.channels.get(callFrom)
+		let isEnabled = true
+        const collector = client.channels.get(callTo).createCollector(message => message.content.startsWith('call'), {
+            time: 0
+        })
+        client.channels.get(callFrom).send('Do `call answer` to answer call and do `call end` to deny call.')
+        callTo.send(`:iphone: Call from ${details.from}`)
+        collector.on('message', (message) => {
+            if (message.content === 'call end') collector.stop('aborted')
+            if (message.content === 'call answer') collector.stop('success')
+        })
+        collector.on('end', (collected, reason) => {
+            if (reason === 'time') return message.reply('The call timed out.')
+            if (reason === 'aborted') {
+                  message.reply(':x: The call has been denied.')
+                  client.channels.get(callFrom).send(':x: Succesfully denied call.')
+            }
+            if (reason === 'success') {
+                client.channels.get(callFrom).send(':heavy_check_mark: Call picked up!')
+		        let sent = 0
+		        client.on('message', message => {
+		        	if (sent === 0) {
+		        		//eslint-disable-next-line no-useless-escape
+                        callFrom.send('Connected. Say \`call end\` at any time to end the call.');
+                        callTo.send('Connected. Say \`call end\` at any time to end the call.');
+		         		sent = 1;
+		    	    }
 
-        callTo.send(`:phone: Call from ${callFrom.name}`)
-    },
-    removeCall() {
-        
+		    	    function contact() {
+		    	    	if (isEnabled === false) return
+			        	if (message.author.id === client.user.id) return
+				        if (message.content.startsWith('call end')) {
+                            message.channel.send(':x: Call has been hung up.')
+	    				    if (message.channel.id === callTo.id) callFrom.send(':x: The call was ended from the other side.')
+		    			    if (message.channel.id === callFrom.id) callTo.send(':x: The call was ended from the other side.')
+
+		    			    return isEnabled = false
+			    	    }
+			    	    if (message.channel.id === callTo.id) callFrom.send(`:telephone_receiver: ${message.author.username}: ${message.content}`)
+			    	    if (message.channel.id === callFrom.id) callTo.send(`:telephone_receiver: ${message.author.username}: ${message.content}`)
+			        }
+			contact()
+        })
     }
 }
 
-setInterval(() => {
-    client.guilds.map(g => {
-        numbers[g.settings.get('number')] = {
-            number: `${g.settings.get('number')}`,
-            id: `${g.settings.get('numberChanID')}`
-        }
-    })
-    fs.writeFileSync(`${__dirname}/numbers.json`, JSON.stringify(numbers, null, 2))
-}, ms('5s'))
+// setInterval(() => {
+//     client.guilds.map(g => {
+//         numbers[g.settings.get('number')] = {
+//             number: `${g.settings.get('number')}`,
+//             id: `${g.settings.get('numberChanID')}`
+//         }
+//     })
+//     fs.writeFileSync(`${__dirname}/numbers.json`, JSON.stringify(numbers, null, 2))
+// }, ms('5s'))
 
 client.login(config.token)
