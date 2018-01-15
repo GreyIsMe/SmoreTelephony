@@ -155,7 +155,7 @@ Now on: ${client.guilds.size} servers`)
         .setAuthor(client.user.username, client.user.avatarURL)
         .setTitle(`Hello, I'm ${client.user.username}!`)
         .setColor(0x00FF00)
-        .setDescription(`Thanks for adding me to your server, "${guild.name}"! To see commands do ${guild.commandPrefix}help. Please note: By adding me to your server and using me, you affirm that you agree to [our TOS](https://smoresoft.uk/tos.html).`)
+        .setDescription(`Thanks for adding me to your server, "${guild.name}"! To see commands do ${guild.commandPrefix}help. Please note: By adding me to your server and using me, you affirm that you agree to [our TOS](https://smoresoft.uk/tos.html).\nBefore calling anyone, please do ${client.commandPrefix}init`)
     guild.owner.send({ embed })
     let found = 0
     //eslint-disable-next-line array-callback-return
