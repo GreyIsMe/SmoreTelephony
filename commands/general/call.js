@@ -24,6 +24,7 @@ module.exports = class CallCommand extends commando.Command {
 
 	async run(msg, args) {
 		let callObj = { to: args.callNumber, from: msg.guild.settings.get('number'), caller:msg.author}
+		if(msg.guild.settings.get('numberChanID') !== msg.channel.id) return msg.channel.send(`You must call from #${this.client.channels.get(msg.guild.settings.get('numberChanID')).name}`)
 		this.client.calls.createCall(callObj)
 	}
 };
