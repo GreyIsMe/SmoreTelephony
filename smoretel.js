@@ -4,7 +4,7 @@ const { RichEmbed } = require('discord.js')
 const express = require('express');
 const app = express();
 const client = new commando.Client({
-    owner: '251383432331001856',
+    owner: ['197891949913571329', '251383432331001856'],
     commandPrefix: 'st.',
     unknownCommandResponse: false
 });
