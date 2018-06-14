@@ -254,8 +254,8 @@ client.calls = {
 
 		    			    return isEnabled = false
 			    	    }
-			    	    if (message.channel.id === callTo.id) callFrom.send(`:telephone_receiver: ${message.author.tag}: ${message.content}`)
-			    	    if (message.channel.id === callFrom.id) callTo.send(`:telephone_receiver: ${message.author.tag}: ${message.content}`)
+			    	    if (message.channel.id === callTo.id) callFrom.send(`:telephone_receiver: ${message.author.tag}: ${message.cleanContent}`)
+			    	    if (message.channel.id === callFrom.id) callTo.send(`:telephone_receiver: ${message.author.tag}: ${message.cleanContent}`)
 			        }
                     contact()
                 })
