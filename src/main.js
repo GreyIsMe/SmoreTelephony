@@ -1,31 +1,45 @@
 // Modules and inits
 const commando = require('discord.js-commando');
-const { RichEmbed } = require('discord.js')
-const client = new commando.Client({
-    owner: ['197891949913571329', '251383432331001856', '339230927345418240'],
-    commandPrefix: 'st.',
-    unknownCommandResponse: false
-});
 const path = require('path');
 const sqlite = require('sqlite');
 const ms = require('ms');
 const fs = require('fs');
-const numbers = require('./numbers.json');
-const config = require('./config.json')
+const config = require('../config.json');
+
+const client = new commando.Client({
+    owner: ['197891949913571329', '251383432331001856', '339230927345418240', '250432205145243649'],
+    commandPrefix: 'st.',
+    unknownCommandResponse: false
+});
+
+const Enmap = require('enmap');
+const EnmapLevel = require('enmap-level');
+
+client.numbers = new Enmap({
+    provider: new EnmapLevel({
+        name: 'numbers',
+    })
+});
+
+require('./logging.js')(client);
 
 client.setProvider(
-    sqlite.open(path.join(__dirname, 'settings.sqlite3')).then(db => new commando.SQLiteProvider(db))
+    sqlite.open(path.join(__dirname, '../data/settings.sqlite3')).then(db => new commando.SQLiteProvider(db))
 ).catch(console.error);
+
+/*
 client.dispatcher.addInhibitor(msg => {
 	//eslint-disable-next-line no-sync
-	let blacklist = JSON.parse(fs.readFileSync('./blacklist.json', 'utf8'));
+	let blacklist = JSON.parse(fs.readFileSync('../blacklist.json', 'utf8'));
 	if (blacklist.guilds.includes(msg.guild.id)) return [`Guild ${msg.guild.id} is blacklisted`, msg.channel.send('This guild has been blacklisted. Appeal here: https://discord.gg/6P6MNAU')];
 });
+
 client.dispatcher.addInhibitor(msg => {
 	//eslint-disable-next-line no-sync
-	let blacklist = JSON.parse(fs.readFileSync('./blacklist.json', 'utf8'));
+	let blacklist = JSON.parse(fs.readFileSync('../blacklist.json', 'utf8'));
 	if (blacklist.users.includes(msg.author.id)) return [`User ${msg.author.id} is blacklisted`, msg.reply('You have been blacklisted. Appeal here: https://discord.gg/6P6MNAU')];
 });
+*/
 
 client.registry
     // Registers custom command groups
@@ -35,23 +49,10 @@ client.registry
         ['control', 'Bot Owners Only'],
         ['fun', 'Fun']
     ])
-
     // Registers all built-in groups, commands, and argument types
     .registerDefaults()
-
     // Registers all of your commands in the ./commands/ directory
     .registerCommandsIn(path.join(__dirname, 'commands'));
-
-
-client.numbers = {
-    set() {
-
-    },
-    get(channelID) {
-        console.log(numbers[channelID].id)
-        return numbers[channelID].id
-    }
-}
 
 client.calls = {
     createCall(details) {
@@ -107,15 +108,5 @@ client.calls = {
         })
     }
 }
-
-setInterval(() => {
-    client.guilds.map(g => {
-        numbers[g.settings.get('number')] = {
-            number: `${g.settings.get('number')}`,
-            id: `${g.settings.get('numberChanID')}`
-        }
-    })
-    fs.writeFileSync(`${__dirname}/numbers.json`, JSON.stringify(numbers, null, 2))
-}, ms('5s'))
 
 client.login(config.token)
