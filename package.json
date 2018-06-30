@@ -2,7 +2,7 @@
   "name": "smoretel",
   "version": "1.0.0",
   "description": "",
-  "main": "smoretel.js",
+  "main": "src/main.js",
   "dependencies": {
     "discord.js": "^11.3",
     "discord.js-commando": "^0.9.0",
@@ -11,8 +11,8 @@
   },
   "devDependencies": {},
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "node smoretel.js --harmony"
+    "test": "node .",
+    "start": "node . --harmony"
   },
   "repository": {
     "type": "git",
