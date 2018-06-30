@@ -14,17 +14,12 @@ module.exports = class InitCommand extends Commando.Command {
 	}
 
 	async run(msg, args) {
-		let guildID = msg.guild.id;
-		let ownerID = msg.guild.owner.id;
-		guildID = guildID.slice(1,4);
-		ownerID = ownerID.slice(1,5);
 
-		let newnumber = `${'1-' + guildID + '-' + ownerID}`;
-
-		console.log(newnumber)
-		if (!msg.guild.member(msg.author).hasPermission('ADMINISTRATOR')) return msg.reply('You are not authorized to do this!')
-		msg.guild.settings.set('number', newnumber)
-		msg.guild.settings.set('numberChanID', msg.channel.id)
+		if (!msg.guild.member(msg.author).hasPermission('ADMINISTRATOR')) 
+			return msg.reply('You are not authorized to do this!');
+		
+		this.client.calls.createNumber(msg);	
+		
 		msg.channel.send(`Number: ${msg.guild.settings.get('number')}\nNumberChannel: ${this.client.channels.get(msg.guild.settings.get('numberChanID')).name} `)
 	}
 };

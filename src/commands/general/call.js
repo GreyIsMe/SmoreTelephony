@@ -27,7 +27,7 @@ module.exports = class CallCommand extends commando.Command {
 		const callObj = { 
 			to: args.callNumber, 
 			from: msg.guild.settings.get('number'), 
-			caller: msg.author
+			msg,
 		};
 
 		if(msg.guild.settings.get('numberChanID') === msg.channel.id) 
@@ -35,11 +35,11 @@ module.exports = class CallCommand extends commando.Command {
 
 		const numberChanID = msg.guild.settings.get('numberChanID');
 
-		if (!numberChanID) return msg.say('This guild does not have `numberChanID` set.')
+		if (!numberChanID) return msg.say('This guild does not have `numberChanID` set.');
 
 		const channel = this.client.channels.get(numberChanID);
 
-		if (!channel) return msg.say('I can not find that channel.')
+		if (!channel) return msg.say('I can not find that channel.');
 
 		msg.say(`You must call from #${channel.name}`);
 	}
