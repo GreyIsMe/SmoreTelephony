@@ -1,3 +1,5 @@
+const commando = require('discord.js-commando');
+
 module.exports = client => 
 client
 .on('ready', () => {
@@ -7,7 +9,6 @@ client
             type: 0
         }
     });
-    console.log(numbers)
     console.log('Awaiting actions.');
 })
 .on('disconnect', () => console.warn('Disconnected!'))
