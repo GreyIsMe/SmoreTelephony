@@ -5,7 +5,7 @@ module.exports = class EchoCommand extends commando.Command {
 		super(client, {
 			name: 'echo',
 			aliases: ['speak'],
-			group: 'general',
+			group: 'fun',
 			memberName: 'echo',
 			description: 'A command that makes me say stuff',
 			examples: ['echo example'],

@@ -6,7 +6,7 @@ module.exports = class Ball8Command extends Commando.Command {
 		super(client, {
 			name: '8ball',
 			aliases: ['ballof8'],
-			group: 'general',
+			group: 'fun',
 			memberName: '8ball',
 			description: 'Ask and you shall receive',
 			examples: ['8ball Is my hand broken?'],
