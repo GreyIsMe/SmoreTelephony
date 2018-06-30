@@ -23,8 +23,24 @@ module.exports = class CallCommand extends commando.Command {
 	}
 
 	async run(msg, args) {
-		let callObj = { to: args.callNumber, from: msg.guild.settings.get('number'), caller:msg.author}
-		if(msg.guild.settings.get('numberChanID') !== msg.channel.id) return msg.channel.send(`You must call from #${this.client.channels.get(msg.guild.settings.get('numberChanID')).name}`)
-		this.client.calls.createCall(callObj)
+
+		const callObj = { 
+			to: args.callNumber, 
+			from: msg.guild.settings.get('number'), 
+			caller: msg.author
+		};
+
+		if(msg.guild.settings.get('numberChanID') === msg.channel.id) 
+			return this.client.calls.createCall(callObj);
+
+		const numberChanID = msg.guild.settings.get('numberChanID');
+
+		if (!numberChanID) return msg.say('This guild does not have `numberChanID` set.')
+
+		const channel = this.client.channels.get(numberChanID);
+
+		if (!channel) return msg.say('I can not find that channel.')
+
+		msg.say(`You must call from #${channel.name}`);
 	}
 };
