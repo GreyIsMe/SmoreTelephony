@@ -12,7 +12,7 @@ module.exports = class InfoCommand extends commando.Command {
       memberName: 'info',
       description: 'Sends you some info about the bot.',
       details: oneLine `
-      Do you like SmoreBot? Do you want to learn more about it?
+      Do you like SmoreTel? Do you want to learn more about it?
       This command sends you important information about the bot.
 			`,
       examples: ['invite'],

@@ -11,7 +11,7 @@ module.exports = class InviteCommand extends commando.Command {
       memberName: 'invite',
       description: 'Sends an invite for the bot.',
       details: oneLine `
-      Do you like SmoreBot? Do you want it on your very own server?
+      Do you like SmoreTel? Do you want it on your very own server?
       This command sends an invite to the bot so you can spread the smore love!
 			`,
       examples: ['invite'],
@@ -22,6 +22,6 @@ module.exports = class InviteCommand extends commando.Command {
 
   //eslint-disable-next-line class-methods-use-this
   async run(message) {
-    message.channel.send('Click here to add me to your server: https://discordapp.com/oauth2/authorize?permissions=360054015&scope=bot&client_id=290228059599142913')
+    message.channel.send('Click here to add me to your server: https://discordapp.com/oauth2/authorize?permissions=360054015&scope=bot&client_id=402288104204926996')
   }
 };

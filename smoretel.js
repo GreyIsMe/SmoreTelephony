@@ -1,8 +1,6 @@
 // Modules and inits
 const commando = require('discord.js-commando');
 const { RichEmbed } = require('discord.js')
-const express = require('express');
-const app = express();
 const client = new commando.Client({
     owner: ['197891949913571329', '251383432331001856', '339230927345418240'],
     commandPrefix: 'st.',
@@ -34,7 +32,8 @@ client.registry
     .registerGroups([
         ['general', 'General'],
 		['support', 'Support'],
-		['control', 'Bot Owners Only']
+        ['control', 'Bot Owners Only'],
+        ['fun', 'Fun']
     ])
 
     // Registers all built-in groups, commands, and argument types

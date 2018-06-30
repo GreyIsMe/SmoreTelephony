@@ -12,7 +12,7 @@ module.exports = class JoinCommand extends commando.Command {
       memberName: 'join',
       description: 'Sends you some important links.',
       details: oneLine `
-      Do you like SmoreBot? Do you want to get some links for it?
+      Do you like SmoreTel? Do you want to get some links for it?
       This command sends you important links for help and updates about SmoreBot.
 			`,
       examples: ['invite'],
