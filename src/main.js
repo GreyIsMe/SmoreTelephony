@@ -1,6 +1,6 @@
 const commando = require('discord.js-commando');
 const path = require('path');
-//const sqlite = require('sqlite');
+const sqlite = require('sqlite');
 const ms = require('ms');
 const fs = require('fs');
 const config = require('../config.json');
@@ -23,9 +23,9 @@ client.numbers = new Enmap({
 require('./logging.js')(client);
 require('./calls.js')(client);
 
-// client.setProvider(
-//     sqlite.open(path.join(__dirname, '../data/settings.sqlite3')).then(db => new commando.SQLiteProvider(db))
-// ).catch(console.error);
+client.setProvider(
+    sqlite.open(path.join(__dirname, '../data/settings.sqlite3')).then(db => new commando.SQLiteProvider(db))
+).catch(console.error);
 
 /*
 client.dispatcher.addInhibitor(msg => {
