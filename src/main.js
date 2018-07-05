@@ -27,7 +27,6 @@ client.setProvider(
     sqlite.open(path.join(__dirname, '../data/settings.sqlite3')).then(db => new commando.SQLiteProvider(db))
 ).catch(console.error);
 
-/*
 client.dispatcher.addInhibitor(msg => {
 	//eslint-disable-next-line no-sync
 	let blacklist = JSON.parse(fs.readFileSync('../blacklist.json', 'utf8'));
@@ -39,7 +38,6 @@ client.dispatcher.addInhibitor(msg => {
 	let blacklist = JSON.parse(fs.readFileSync('../blacklist.json', 'utf8'));
 	if (blacklist.users.includes(msg.author.id)) return [`User ${msg.author.id} is blacklisted`, msg.reply('You have been blacklisted. Appeal here: https://discord.gg/6P6MNAU')];
 });
-*/
 
 client.registry
     .registerGroups([

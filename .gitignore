@@ -1,4 +1,5 @@
 node_modules/
-data/
 blacklist.json
 config.json
+*.sqlite3
+numbers.json
